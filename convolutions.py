@@ -131,7 +131,7 @@ def play(image_path, num_convolutions):
         The path to the image file
 
     num_convolutions : int
-        The number of convolutions (and deconvolutions) to perform
+        The number of convolutions (and transposed convolutions) to perform
 
     Returns
     -------
@@ -140,8 +140,8 @@ def play(image_path, num_convolutions):
     i = 0
 
     # Set up folder
-    mkdir("convolutions")
-    output_folder = "convolutions/{}_{}_convolutions".format(
+    mkdir("examples")
+    output_folder = "examples/{}_{:02d}_convolutions".format(
         image_path.split(os.path.sep)[-1],
         num_convolutions
     )
@@ -150,7 +150,7 @@ def play(image_path, num_convolutions):
     # Plot a given image
     image = ndimage.imread(image_path).mean(axis=2)
     plt.pcolor(image)
-    plt.savefig(os.path.join(output_folder, "{}_original_image.png".format(i)))
+    plt.savefig(os.path.join(output_folder, "{:02d}_original_image.png".format(i)))
 
     # Define kernel
     kernels = []
@@ -163,7 +163,7 @@ def play(image_path, num_convolutions):
         i += 1
         convolutions.append(perform_convolution(convolutions[-1], kernels[j]))
         plt.pcolor(convolutions[-1])
-        plt.savefig(os.path.join(output_folder, "{}_convolution_{}.png".format(i, j+1)))
+        plt.savefig(os.path.join(output_folder, "{:02d}_convolution_{:02d}.png".format(i, j+1)))
 
     # Perform transposed convolutions
     transposed_convolutions = [convolutions[-1]]
@@ -178,7 +178,7 @@ def play(image_path, num_convolutions):
             )
         )
         plt.pcolor(transposed_convolutions[-1])
-        plt.savefig(os.path.join(output_folder, "{}_transposed_convolution_{}.png".format(i, j+1)))
+        plt.savefig(os.path.join(output_folder, "{:02d}_transposed_convolution_{:02d}.png".format(i, j+1)))
 
 
 def parse_args():
@@ -199,7 +199,7 @@ def parse_args():
     parser.add_argument("--image", dest="image", type=str, default="images/python.png",
                         help="the image to be convoluted")
     parser.add_argument("--num-convolutions", dest="num_convolutions", type=int, default=3,
-                        help="the number of convolutions (and deconvolutions) to perform")
+                        help="the number of convolutions (and transposed convolutions) to perform")
 
     return parser.parse_args()
 
