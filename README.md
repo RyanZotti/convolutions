@@ -12,4 +12,11 @@ Perform convolutions and transposed convolutions, saving the output along the wa
 ## How to run the script
 
 ```python
-python convolutions --image <path to image> --num-convolutions <number of convolutions>
+python convolutions.py --image <path to image> --num-convolutions <number of convolutions>
+```
+
+For example:
+
+```python
+python convolutions.py --image images/python.png --num-convolutions 3
+```
