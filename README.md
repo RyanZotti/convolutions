@@ -18,11 +18,11 @@ It can be seen that with more convolutions, it is harder to recover the original
 
 ### BMW logo
 
-![BMW logo](./images/bmw.png)
+![BMW logo](./images/bmw.jpg)
 
 | Original image | 1 cycle | 3 cycles | 5 cycles |
 |---|---|---|---|
-| ![Original image](./examples/bmw.png_01_convolutions/00_original_image.png) | ![One cycle](./examples/bmw.png_01_convolutions/02_transposed_convolution_01.png) | ![Three cycles](./examples/bmw.png_03_convolutions/06_transposed_convolution_03.png) | ![Five cycles](./examples/bmw.png_05_convolutions/10_transposed_convolution_05.png) |
+| ![Original image](./examples/bmw.jpg_01_convolutions/00_original_image.png) | ![One cycle](./examples/bmw.jpg_01_convolutions/02_transposed_convolution_01.png) | ![Three cycles](./examples/bmw.jpg_03_convolutions/06_transposed_convolution_03.png) | ![Five cycles](./examples/bmw.jpg_05_convolutions/10_transposed_convolution_05.png) |
 
 Once again, it is harder to recover the original image directly.
 
