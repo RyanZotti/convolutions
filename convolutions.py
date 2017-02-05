@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import math
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage
@@ -23,6 +24,25 @@ def mkdir(path):
     full_path = os.path.join(os.getcwd(), path)
     if not os.path.exists(full_path):
         os.mkdir(full_path)
+
+
+def print_np_array(np_array):
+    """Prints a numpy array to the console.
+
+    Parameters
+    ----------
+    np_array : numpy array
+        The numpy array to be printed
+
+    Returns
+    -------
+    None
+    """
+    if len(np_array.shape) > 1:
+        for row in np_array:
+            print ' '.join([str(item) for item in row.tolist()])
+    else:
+        print ' '.join([str(item) for item in np_array.tolist()])
 
 
 def reshape_kernel(kernel, n_rows_input_matrix, n_cols_input_matrix):
@@ -52,7 +72,10 @@ def reshape_kernel(kernel, n_rows_input_matrix, n_cols_input_matrix):
             for col in range(kernel.shape[1]):
                 kernel_reshaped[
                     row_offset,
-                    row * n_output_rows + row_offset + col
+                    # Create offset for moving to new row while sliding kernel
+                    int(math.floor(row_offset / n_output_rows) * 2) +
+                    # Create offset for moving over to new columns while sliding kernel
+                    row * n_rows_input_matrix + row_offset + col
                 ] = kernel[row, col]
 
     return kernel_reshaped, n_output_rows, n_output_columns
@@ -178,7 +201,8 @@ def play(image_path, num_convolutions):
             )
         )
         plt.pcolor(transposed_convolutions[-1])
-        plt.savefig(os.path.join(output_folder, "{:02d}_transposed_convolution_{:02d}.png".format(i, j+1)))
+        plt.savefig(os.path.join(output_folder,
+                                 "{:02d}_transposed_convolution_{:02d}.png".format(i, j+1)))
 
 
 def parse_args():
