@@ -73,9 +73,9 @@ def reshape_kernel(kernel, n_rows_input_matrix, n_cols_input_matrix):
                 kernel_reshaped[
                     row_offset,
                     # Create offset for moving to new row while sliding kernel
-                    int(math.floor(row_offset / n_output_rows) * 2) +
+                    (math.floor(row_offset / n_output_columns) + row) * n_cols_input_matrix +
                     # Create offset for moving over to new columns while sliding kernel
-                    row * n_rows_input_matrix + row_offset + col
+                    (row_offset % n_output_columns) + col
                 ] = kernel[row, col]
 
     return kernel_reshaped, n_output_rows, n_output_columns
